@@ -21,7 +21,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
-      
+
       - name: Create Version PR or Publish to NPM
         id: changesets
         uses: changesets/action@v1.4.1
@@ -32,4 +32,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-          NODE_ENV: "production"
