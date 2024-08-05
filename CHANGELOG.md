@@ -1,5 +1,11 @@
 # create-capy-app
 
+## 0.0.4
+
+### Patch Changes
+
+- 3b70132: Add bun to hashbang
+
 ## 0.0.3
 
 ### Patch Changes
