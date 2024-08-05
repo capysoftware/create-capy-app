@@ -1,7 +1,10 @@
 {
 	"name": "create-capy-app",
 	"module": "index.ts",
-	"bin": "index.ts",
+	"private": "false",
+	"bin": {
+		"create-capy-app": "index.ts"
+	},
 	"license": "MIT",
 	"version": "0.0.2",
 	"type": "module",
