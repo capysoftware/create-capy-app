@@ -1,7 +1,7 @@
 import { intro, note, outro, text } from "@clack/prompts";
 import { $, write } from "bun";
 import pc from "picocolors";
-import { COMPONENT_JSON } from "./templates";
+import { COMPONENT_JSON, LAYOUT, SAAS_DASHBOARD } from "./templates";
 
 intro(pc.bgCyan(`next-scaffold`));
 
@@ -17,7 +17,11 @@ await $`bun create next-app@latest ${projectName} --ts --tailwind --eslint --app
 
 await write(`./${projectName.toString()}/components.json`, COMPONENT_JSON);
 
-await $`bunx --bun shadcn-ui@latest init -c ${projectName} -y -d`;
+await $`cd ${projectName} && bunx --bun shadcn-ui@latest init -y -d && bunx --bun shadcn-ui@latest add -y badge button card dropdown-menu input sheet`;
+
+await write(`./${projectName.toString()}/src/app/layout.tsx`, LAYOUT);
+
+await write(`./${projectName.toString()}/src/app/page.tsx`, SAAS_DASHBOARD);
 
 note(`
 ${pc.green("cd " + projectName.toString())} to get into your next js app
