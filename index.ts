@@ -2,6 +2,8 @@ import { intro, note, outro, text } from "@clack/prompts";
 import { $, write } from "bun";
 import pc from "picocolors";
 import { COMPONENT_JSON, LAYOUT, SAAS_DASHBOARD } from "./templates";
+import template from "lodash.template";
+import { hypenToCapitalCase } from "./lib/utils";
 
 intro(pc.bgCyan(`next-scaffold`));
 
@@ -19,9 +21,16 @@ await write(`./${projectName.toString()}/components.json`, COMPONENT_JSON);
 
 await $`cd ${projectName} && bunx --bun shadcn-ui@latest init -y -d && bunx --bun shadcn-ui@latest add -y badge button card dropdown-menu input sheet`;
 
-await write(`./${projectName.toString()}/src/app/layout.tsx`, LAYOUT);
+const capitalCaseProjectName = hypenToCapitalCase(projectName.toString());
+await write(
+	`./${projectName.toString()}/src/app/layout.tsx`,
+	template(LAYOUT)({ projectName: capitalCaseProjectName })
+);
 
-await write(`./${projectName.toString()}/src/app/page.tsx`, SAAS_DASHBOARD);
+await write(
+	`./${projectName.toString()}/src/app/page.tsx`,
+	template(SAAS_DASHBOARD)({ projectName: capitalCaseProjectName })
+);
 
 note(`
 ${pc.green("cd " + projectName.toString())} to get into your next js app
