@@ -5,7 +5,7 @@
 		"create-capy-app": "index.ts"
 	},
 	"license": "MIT",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"scripts": {
 		"release": "changeset publish",
