@@ -1,9 +1,18 @@
-import { intro, note, outro, text } from "@clack/prompts";
+import {
+	intro,
+	note,
+	outro,
+	text,
+	confirm,
+	cancel,
+	isCancel,
+} from "@clack/prompts";
 import { $, write } from "bun";
 import pc from "picocolors";
 import { COMPONENT_JSON, LAYOUT, SAAS_DASHBOARD } from "./templates";
 import template from "lodash.template";
 import { hypenToCapitalCase } from "./lib/utils";
+import { rm, exists } from "node:fs/promises";
 
 intro(pc.bgCyan(`next-scaffold`));
 
@@ -11,9 +20,36 @@ const projectName = await text({
 	message: "What is your project name?",
 	placeholder: "project-name",
 	validate(value) {
-		if (value.length === 0) return `Please enter a project name.`;
+		const regex = new RegExp("^[a-zA-Z-]+$");
+		if (value.trim().length === 0) {
+			return "Directory name is required.";
+		} else if (!regex.test(value)) {
+			return "Directory name may only contain letters and dashes!";
+		}
 	},
 });
+
+const directoryAlreadyExists = await exists(`./${projectName.toString()}`);
+
+if (directoryAlreadyExists) {
+	const confirmDeleteProject = await confirm({
+		message: pc.red(
+			`${projectName.toString()} already exists. Do you want to delete it?`
+		),
+	});
+
+	if (!confirmDeleteProject) {
+		outro(`You must delete ${projectName.toString()} before continuing.`);
+		process.exit(0);
+	}
+
+	if (isCancel(confirmDeleteProject)) {
+		cancel("Operation cancelled.");
+		process.exit(0);
+	}
+
+	await rm(`./${projectName.toString()}`, { recursive: true, force: true });
+}
 
 await $`bun create next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --use-bun --import-alias '@/*'`;
 
