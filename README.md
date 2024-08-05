@@ -1,4 +1,4 @@
-# next-scaffold
+# Create Capy App
 
 To install dependencies:
 
