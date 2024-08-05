@@ -1,7 +1,6 @@
 {
 	"name": "create-capy-app",
 	"module": "index.ts",
-	"private": "false",
 	"bin": {
 		"create-capy-app": "index.ts"
 	},
