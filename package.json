@@ -1,5 +1,5 @@
 {
-	"name": "next-scaffold",
+	"name": "create-capy-app",
 	"module": "index.ts",
 	"type": "module",
 	"devDependencies": {

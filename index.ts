@@ -14,7 +14,7 @@ import template from "lodash.template";
 import { hypenToCapitalCase } from "./lib/utils";
 import { rm, exists } from "node:fs/promises";
 
-intro(pc.bgCyan(`next-scaffold`));
+intro(pc.bgCyan(`Create Capy App`));
 
 const projectName = await text({
 	message: "What is your project name?",
