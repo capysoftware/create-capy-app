@@ -8,7 +8,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: bun format:check
+    name: bun lint
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
